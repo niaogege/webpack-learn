@@ -2,17 +2,16 @@
  * @Author: cpp
  * @Date: 2020-12-05 22:09:26
  * @LastEditors: cpp
- * @LastEditTime: 2020-12-05 22:10:22
+ * @LastEditTime: 2020-12-13 15:59:24
  * @FilePath: \plugin-cppd:\learn\webpack-learn\README.md
 -->
 
 学习如何用webpack搭建项目，成为模板，为后面的脚手架做准备，需要学习的有
-- webpack
-- node
-- 学会手写自己的loader
-- 手写plugin
-- webpack的异步加载如何实现
-- webpack的分包策略
+- [x] webpack 初始化vue项目
+- [] 学会手写自己的loader
+- [] 手写plugin
+- [] webpack的异步加载如何实现
+- [] webpack的分包策略
 
 ### 什么是webpack？
 官网是这么描述的: 

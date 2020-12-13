@@ -1,19 +1,26 @@
 {
-  "name": "webpack-learn",
+  "name": "cpp-webpack-learn",
   "version": "1.0.0",
-  "description": "vue webpack",
+  "description": "vue webpack init",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --config build/webpack.config.dev.js --inline --hot",
-    "build": "webpack --progress --config build/webpack.config.prod.js",
-    "report": "npm_config_report=true npm run build"
+    "build": "webpack --progress --config build/webpack.config.prod.js"
   },
   "keywords": [
-    "webpack init project"
+    "webpack init vue project",
+    "init",
+    "vue project",
+    "vue install"
   ],
   "author": "cpp",
   "license": "ISC",
+  "homepage": "https://github.com/niaogege/webpack-learn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niaogege/webpack-learn.git"
+  },
   "dependencies": {
     "vue": "^2.6.12"
   },
@@ -40,6 +47,7 @@
     "webpack-merge": "^5.4.0"
   },
   "files": [
+    "build",
     "dist",
     "src",
     "public"
