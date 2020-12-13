@@ -1,32 +1,32 @@
 <template>
   <div id='app'>
-    App Vue Demo
-    <h1 class='name'>{{name}}</h1>
-    <NameComponent name='来自父组件'/>
-    <Test name='来自Parent组件'/>
+    <TheLoading
+      name='chendapeng'
+    />
+    <!-- <Test name='感谢使用install'/> -->
   </div>
 </template>
 <script>
-import NameComponent from './Test/name'
-import Test from './Test/test'
+// import TheLoading from './component/TheLoading'
+// import Test from './component/test'
 
 export default {
   components: {
-    NameComponent,
-    Test
+    // TheLoading,
+    // Test
   },
   data() {
-    return {
-      name: 'chendap'
-    }
+    return {}
   },
   mounted() {
-    console.log(Test, 'Test')
+    // console.log(11, 'Test')
   }
 }
 </script>
 <style lang="less" scoped>
-.name {
-  color: red;
+@import url('./assets/reset.less');
+#app {
+  width: 100vw;
+  height: 100vh;
 }
 </style>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-17 19:31:22
- * @LastEditTime: 2020-12-05 21:59:57
+ * @LastEditTime: 2020-12-12 23:04:41
  * @LastEditors: cpp
  * @Description: In User Settings Edit
  * @FilePath: \plugin-cppd:\learn\webpack-learn\build\webpack.common.js
@@ -11,12 +11,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin'); // 复制并压缩html
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('entry path', path.resolve(__dirname, '../src/component/index.js'));
 module.exports = {
-    entry: path.resolve(__dirname, '../src/index.js'),
+    entry: path.resolve(__dirname, '../src/component/index.js'),
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: 'js/[name].[hash].js',
-      chunkFilename: 'js/[id].[hash].js'
+      filename: 'main.js',
+      libraryTarget: 'umd', // umd
+      library: 'cppVue'
     },
     module: {
       rules: [
@@ -96,4 +98,3 @@ module.exports = {
       }),
     ]
   }
-
