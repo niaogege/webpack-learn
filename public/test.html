@@ -1,0 +1,359 @@
+<!--
+ * @Author: cpp
+ * @Date: 2020-11-15 19:42:07
+ * @LastEditTime: 2020-12-27 22:14:50
+ * @LastEditors: cpp
+ * @FilePath: \vue_studyd:\learn\webpack-learn\public\test.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>loading Template</title>
+  <style>
+    #outer {
+      padding: 20px;
+      background: #616161;
+    }
+  
+    #inner {
+      width: 100px;
+      height: 100px;
+      background: #757575;
+    }
+  </style>
+</head>
+<body>
+  <div id="outer">
+    <div id="inner"></div>
+  </div>
+  <!-- <script src="./vue.mini.js"></script> -->
+  <script >
+    // 进阶版
+    function cppPromise(executor) {
+      // 收集链式调用的函数集合cb
+      this.onResolvedCallbacks = [];
+      this.onRejectedCallbacks = [];
+      this.value = undefined
+      this.reason = undefined
+      this.status = 'pending'
+      const resolve = (value) => {
+        setTimeout(() => {
+          this.status = 'fulfilled'
+          this.value = value
+          this.onResolvedCallbacks.forEach((cb) => {
+            cb(this.value)
+          })
+        }, 0)
+      }
+      const reject = (val) => {
+        setTimeout(() => {
+          this.status = 'rejected'
+          this.reason = val
+          this.onRejectedCallbacks.forEach((cb) => {
+            cb(this.reason)
+          })
+        }, 0)
+      }
+      executor(resolve, reject)
+    }
+    handleResolve(resolve, reject, onFulledFn) {
+      return new cppPromise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            const res = onFulledFn(this.value);
+            if (res instanceof cppPromise) {
+              res.then(resolve, reject)
+            } else {
+              resolve(res)
+            }
+          } catch (e) {
+            reject(e)
+          }
+        })
+      })
+    }
+    handleReject(resolve, reject, onRejectedFn) {
+      return new cppPromise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            const res = onRejectedFn(this.reason);
+            if (res instanceof cppPromise) {
+              res.then(resolve, reject)
+            } else {
+              resolve(res)
+            }
+          } catch (e) {
+            reject(e)
+          }
+        })
+      })
+    }
+    cppPromise.prototype.then = function(onFulledFn, onRejectedFn) {
+      if (this.status === 'pending') {
+        return new cppPromise((resolve, reject) => {
+          // 收集成功的回调
+          this.onResolvedCallbacks.push(() => {
+            handleResolve(resolve, reject, onFulledFn)
+          });
+          
+          // 收集失败的回调
+          this.onRejectedCallbacks.push(() => {
+            handleReject(resolve, reject, onRejectedFn)
+          });
+        })
+      }
+      if (this.status === 'fulfilled') {
+        return new cppPromise((resolve, reject) => {
+          setTimeout(() => {
+            handleResolve(resolve, reject, onFulledFn)
+          })
+        })
+      }
+      if (this.status === 'rejected') {
+        return new cppPromise((resolve, reject) => {
+          setTimeout(() => {
+            handleReject(resolve, reject, onRejectedFn)
+          })
+        })
+      }
+    };
+
+
+    // 实例调用2
+    // var p1 = new cppPromise(function(resolve, reject){
+    //   setTimeout(() => {
+    //     resolve("success 11");
+    //     reject('reject 22')
+    //   }, 400)
+    // }).then(
+    //   (value) => {
+    //   console.log(value);
+    //   return new cppPromise(
+    //     (resolve) => {
+    //       setTimeout(() => {
+    //         resolve('resolve then')
+    //       }, 800)
+    //     })
+    // }, (err) => {
+    //   console.log(err);
+    //   return new cppPromise(
+    //     (reject) => {
+    //       setTimeout(() => {
+    //         reject('reject then')
+    //       }, 800)
+    //     })
+    // }).then(
+    //   (res) => console.log('then then success', res), 
+    //   (err) => console.log('then then err', err)
+    // );
+    // 实例调用三
+    const promise1 = new cppPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('success')
+      }, 1000)
+    })
+    const promise2 = promise1.then((res) => {
+      console.log(res)
+      throw new Error('error!!!')
+    })
+
+    console.log('promise1', promise1)
+    console.log('promise2', promise2)
+    // 面试版 promise
+    // 七个主要属性
+    // status value reason resolve reject then方法
+    // 成功的回调函数数组 onResolvedCallbacks = []
+    // 失败的回调函数数组 onRejectedCallbacks = []
+
+    // 专业版
+    class myPromise {
+      constructor(fn) {
+        this.status = 'pending';
+        this.value = undefined;
+        this.reason = undefined;
+        this.onResolvedCallbacks = []
+        this.onRejectedCallbacks = []
+        const resolve = (val) => {
+          if (this.status === 'pending') {
+            this.status = 'fulfilled'
+            this.value = val
+            this.onResolvedCallbacks.forEach((cb) => {
+              setTimeout(() => {
+                cb(val)
+              }, 0)
+            })
+          }
+        }
+        const reject = (val) => {
+          if (this.status === 'pending') {
+            this.status = 'rejected'
+            this.reason = val;
+            this.onRejectedCallbacks.forEach((cb) => {
+              setTimeout(() => {
+                cb(val)
+              }, 0)
+            })
+          }
+        }
+        // 使用者传入的参数
+        try {
+          fn(resolve, reject)
+        } catch (e) {
+          reject(e)
+        }
+      }
+      // 构造器中resolve和reject的结果传入onFufilled和onRejected中
+      then(onFulfilled, onRejected) {
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (v) => v;
+        onRejected = typeof onRejected === 'function' ? onRejected : (e) => {throw e};
+        let promise2
+        if (this.status === 'fulfilled') {
+          promise2 = new myPromise((resolve, reject) => {
+            setTimeout(() => {
+              try {
+                this.onResolvedCallbacks.push(() => {
+                  const value = onFulfilled(this.value);
+                  resolvePromise(promise2, value, resolve, reject)
+                })
+              } catch(e) {
+                reject(e)
+              }
+            }, 0)
+          })
+        }
+
+        if (this.status === 'rejected') {
+          promise2 = new myPromise((resolve, reject) => {
+            setTimeout(() => {
+              try {
+                this.onRejectedCallbacks(() => {
+                  const reason = onRejected(this.reason);
+                  resolvePromise(promise2, reason, resolve, reject)
+                })
+              } catch(e) {
+                reject(e)
+              }
+            }, 0)
+          })
+        }
+        // 
+        if (this.status === 'pending') {
+          promise2 = new myPromise((resolve, reject) => {
+            // 成功回调的收集 
+            this.onResolvedCallbacks.push(() => {
+              const value = onFulfilled(this.value);
+              resolvePromise(promise2, value, resolve, reject)  
+            })
+            // 失败回调的收集
+            this.onRejectedCallbacks(() => {
+              const reason = onRejected(this.reason);
+              resolvePromise(promise2, reason, resolve, reject) 
+            })
+          })
+        }
+
+        return promise2
+      }
+      // 统一处理
+      resolvePromise(myPromise, val, resolve, reject) {
+        if (myPromise === val) {
+          return reject(new TypeError('循环引用')) 
+        }
+        if (val && (typeof val === 'object' || typeof val === 'function')) {
+          try {
+            if (val instanceof myPromise) {
+              val.then(resolve)
+            } else {
+              resolve(val)
+            }
+            let thenFn = val.then
+            let called
+            if (typeof thenFn === 'function') {
+              thenFn.call(val, value => {
+                if (called) return
+                called = true
+                resolvePromise(promise2, value, resolve, reject)
+              }, err => {
+                if (called) return
+                called = true
+                reject(err)
+              })
+              // 其实就相当于
+              // if (val instanceof myPromise) {
+              //   val.then(resolve, reject)
+              // } else {
+              //   resolve(val)
+              //   reject(val)
+              // }
+            } else {
+              resolve(val)
+            }
+          } catch (e) {
+            if (called) return
+            called = true
+            reject(e)
+          }
+        } else {
+          resolve(val)
+        }
+      }
+      catch(onRejected) {
+        return this.then(null, onRejected)
+      }
+    }
+    myPromise.resolve = function(val) {
+      return new myPromise((resolve, reject) => {
+        resolve(val)
+      })
+    }
+    myPromise.reject = function(val) {
+      return new myPromise((resolve, reject) => {
+        reject(val)
+      })
+    }
+    // 入参是个由Promise实例组成的数组
+    // 返回值是个promise，因为可以使用.then
+    // 如果全部成功，状态变为resolved, 并且返回值组成一个数组传给回调
+    // 但凡有一个失败，状态变为rejected, 并将error返回给回调
+    myPromise.all = function(promises) {
+      return new myPromise((resolve, reject) => {
+        const result = []
+        let index = 0;
+        for(let item of promises) {
+          item.then((res) => {
+            result[index] = res
+            index ++ 
+            if (index === promises.length) {
+              resolve(result)
+            }
+          }, (err) => {
+            reject(err)
+          })
+        }
+      })
+    }
+
+    // myPromise.all示例
+    let p1 = myPromise.resolve(1),
+    p2 = myPromise.resolve(2),
+    p3 = myPromise.resolve(3);
+
+    myPromise.all([p1, p2, p3]).then((res)=>{
+        console.log(res, 'res')
+    }, (err)=>{
+        console.log(err, 'err')
+    })
+
+
+    myPromise.race = function(promises) {
+      return new myPromise((resolve, reject) => {
+        for (let promise of promises) {
+          promise.then(resolve, reject)
+        }
+      })
+    }
+  </script>
+</body>
+</html>
