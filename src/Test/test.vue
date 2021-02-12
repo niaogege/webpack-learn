@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-17 17:26:26
- * @LastEditTime: 2020-12-05 20:16:26
+ * @LastEditTime: 2021-02-12 15:35:28
  * @LastEditors: cpp
  * @Description: In User Settings Edit
- * @FilePath: \plugin-cppd:\learn\webpack-learn\src\Test\test.vue
+ * @FilePath: \vue_studyd:\learn\webpack-learn\src\Test\test.vue
 -->
 <!--
  * @Author: your name
@@ -21,6 +21,7 @@
 </template>
 <script>
 export default {
+  name: 'Test',
   props: {
     name: {
       type: String,

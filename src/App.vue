@@ -1,27 +1,49 @@
 <template>
   <div id='app'>
-    App Vue Demo
-    <h1 class='name'>{{name}}</h1>
-    <NameComponent name='来自父组件'/>
-    <Test name='来自Parent组件'/>
+    <!-- <h1 class='name'>{{name}}</h1>
+    <NameComponent name='来自父组件name'/>
+    <Test name='来自Parent组件'/> -->
+    <LinkedList />
   </div>
 </template>
 <script>
-import NameComponent from './Test/name'
-import Test from './Test/test'
-
+import allComponent from './allComponent';
+console.log('allComponent', allComponent);
 export default {
   components: {
-    NameComponent,
-    Test
+    ...allComponent
   },
   data() {
     return {
-      name: 'chendap'
+      name: 'chendap',
+      list: {}
     }
   },
   mounted() {
-    console.log(Test, 'Test')
+    // console.log(Test, 'Test')
+    // const list = new LinkedList()
+    // list.push(10)
+    // list.push(15)
+    // list.push(20)
+    // console.log('list ', list);
+    // this.list = list
+    // window.list = list
+    // const double =  new DoublyLinkedList()
+    // // double.push(10)
+    // // double.push(15)
+    // // double.push(20)
+    // double.insert(10, 0)
+    // double.insert(15, 1)
+    // double.insert(20, 2)
+    // console.log('double', double);
+    // window.double = double
+    // // 排序链表
+    // const sortList = new SortedLinkedList()
+    // sortList.insert(15, 0)
+    // sortList.insert(20, 2)
+    // sortList.insert(10, 1)
+    // console.log('sortList', sortList);
+    // window.sortList = sortList
   }
 }
 </script>

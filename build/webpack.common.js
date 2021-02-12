@@ -1,16 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2020-11-17 19:31:22
- * @LastEditTime: 2020-12-05 21:59:57
+ * @LastEditTime: 2021-01-10 18:56:08
  * @LastEditors: cpp
  * @Description: In User Settings Edit
- * @FilePath: \plugin-cppd:\learn\webpack-learn\build\webpack.common.js
+ * @FilePath: \vue_studyd:\learn\webpack-learn\build\webpack.common.js
  */
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin'); // 复制并压缩html
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 module.exports = {
     entry: path.resolve(__dirname, '../src/index.js'),
     output: {
@@ -18,15 +17,28 @@ module.exports = {
       filename: 'js/[name].[hash].js',
       chunkFilename: 'js/[id].[hash].js'
     },
+    // resolveLoader: {
+    //   alias: {
+    //     'cpp-loader': path.resolve(__dirname, 'loaders/a.js')
+    //   }
+    // },
     module: {
       rules: [
         // 转换 ES6 代码，解决浏览器兼容问题
         {
           test: '/\.js$/',
           exclude: '/node_modules/',
-          use: {
-            loader: 'babel-loader'
-          }
+          use: [
+            {
+              loader: 'babel-loader'
+            },
+            // {
+            //   loader: path.join(__dirname, '../loader/cpp-loader,js'),
+            //   options: {  
+            //     log: 'hello loader'
+            //   }
+            // }
+          ]
         },
         {
           test: /\.less$/,

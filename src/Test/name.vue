@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-15 19:47:42
- * @LastEditTime: 2020-12-05 20:05:25
+ * @LastEditTime: 2021-02-12 15:36:50
  * @LastEditors: cpp
  * @Description: In User Settings Edit
- * @FilePath: \plugin-cppd:\learn\webpack-learn\src\Test\name.vue
+ * @FilePath: \vue_studyd:\learn\webpack-learn\src\Test\name.vue
 -->
 <template>
   <div>
@@ -13,9 +13,13 @@
 </template>
 <script>
 export default {
-  props: ['name'],
-  mounted() {
-    // console.log('111');
+  name: 'nameComponent',
+  // props: ['name'],
+  props: {
+    name: {
+      type: String,
+      default: '这是 name 组件'
+    }
   }
 }
 </script>
