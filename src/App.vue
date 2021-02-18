@@ -3,20 +3,20 @@
     <!-- <h1 class='name'>{{name}}</h1>
     <NameComponent name='来自父组件name'/>
     <Test name='来自Parent组件'/> -->
-    <LinkedList />
+    <router-view></router-view>
+    <!-- <LinkedList /> -->
   </div>
 </template>
 <script>
-import allComponent from './allComponent';
-console.log('allComponent', allComponent);
+// import allComponent from './allComponent';
 export default {
-  components: {
-    ...allComponent
-  },
+  // components: {
+  //   ...allComponent
+  // },
   data() {
     return {
       name: 'chendap',
-      list: {}
+      // list: {}
     }
   },
   mounted() {

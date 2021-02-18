@@ -2,17 +2,24 @@
  * @Author: cpp
  * @Date: 2021-02-12 15:27:07
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-12 17:11:42
- * @FilePath: \vue_studyd:\learn\webpack-learn\src\linkedList\index.vue
+ * @LastEditTime: 2021-02-16 19:50:58
+ * @FilePath: \webpack-learn\src\linkedList\index.vue
 -->
 <template>
   <div>
     <h1>{{title}}</h1>
+    <!-- 改造后的{{allTitle}} -->
     <section v-for='(item, index) in practice' :key="item.id">
-      <h3> {{index}}.{{item.name}}</h3>
+      <h3> {{index + 1}}.{{item.name}}</h3>
       <div>
-        <span>
+        <span v-if='item.id === "sortList"'>
           {{item.id}}: {{sortList}}
+        </span>
+        <span v-if='item.id === "reverseList"'>
+          {{item.id}}: {{reverseList}}
+        </span>
+        <span v-if='item.id === "circularList"'>
+          {{item.id}}: {{circularList}}
         </span>
       </div>
     </section>
@@ -25,7 +32,15 @@ export default {
   data() {
     return {
       title: '链表基础知识',
+      list: [
+        {
+          name: 'cppp'
+        },
+        1
+      ],
       sortList: {}, // 排序
+      reverseList: {}, // 反向
+      circularList: {}, // 环
       practice: [
         {
           name: '排序链表',
@@ -42,9 +57,19 @@ export default {
       ]
     }
   },
+  // computed: {
+  //   allTitle() {
+  //     return this.title + 'cpp'
+  //   }
+  // },
+  methods: {
+    test() {
+      console.log('this', this);
+    }
+  },
   mounted() {
     console.log('this', this);
-    // 排序链表
+    // // 排序链表
     const sortList = new SortedLinkedList()
     sortList.insert(15, 0)
     sortList.insert(20, 2)
@@ -54,11 +79,14 @@ export default {
     window.sortList = this.sortList = sortList
     // 两两交换
     const reverse = new LinkedList()
-    reverse.push(1)
-    reverse.push(2)
     reverse.push(3)
-    reverse.push(4)
-    window.reverse = reverse
+    reverse.push(2)
+    reverse.push(0)
+    reverse.push(-4)
+    reverse.push(2)
+    // reverse.push(0)
+    // reverse.push(-4)
+    window.reverse = this.reverseList = this.circularList = reverse
     console.log('reverse', reverse);
   }
 }

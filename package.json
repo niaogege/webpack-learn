@@ -14,7 +14,8 @@
   "author": "cpp",
   "license": "ISC",
   "dependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

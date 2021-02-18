@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-01-02 10:54:38
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-12 17:17:05
+ * @LastEditTime: 2021-02-12 21:48:27
  * @FilePath: \vue_studyd:\learn\webpack-learn\src\linkedList\main.js
  */
 import { Node, defaultEquals, DoublyNode, defaultCompare, Compare } from './utils'
@@ -135,6 +135,50 @@ export class LinkedList {
     this.head = helper(head);
     console.log('head', this.head);
     // return res
+  }
+  // 是否有环1
+  // hasCycle() {
+  //   const head = this.head
+  //   if (!head) return false;
+  //   let current = head
+  //   let next = current.next
+  //   while( next.element === current.element) {
+  //     return true
+  //   }
+  //   current = next  
+  //   next = next.next
+  //   return false
+  // }
+  // 是否有环2
+  hasCycle() {
+    let current = thie.head
+    const arr = [];
+    while(current !== null) {
+      if (arr.includes(current.element)) {
+        return true
+      } else {
+        arr.push(current.element)
+      }
+      current = current.next
+    }
+    return false
+  }
+  // 是否是闭环
+  /**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+  hasCycle2() {
+    let fast = this.head;
+    let slow = this.head;
+    while(slow && fast && fast.next) {
+        fast = fast.next.next
+        slow = slow.next
+        if (slow === fast) {
+            return true
+        } 
+    }
+    return false
   }
 }
 /**
