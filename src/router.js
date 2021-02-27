@@ -2,18 +2,18 @@
  * @Author: cpp
  * @Date: 2021-02-13 18:50:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-17 16:15:55
+ * @LastEditTime: 2021-02-27 17:01:54
  * @FilePath: \webpack-learn\src\router.js
  */
-import Router from 'vue-router'
-import Vue from '../node_modules/vue/dist/vue.js'
-import NameComponent from './render/name'
-import Test from './render/test'
-import Main from './main'
+import Router from 'vue-router';
+import Vue from '../node_modules/vue/dist/vue.js';
+// import NameComponent from './render/name';
+// import Test from './render/test';
+import Main from './main';
 import Tree from './tree';
-import LinkedList from './linkedList/index'
+import LinkedList from './linkedList/index';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/tree',
       component: Tree
-    },
+    }
     // {
     //   path: '/name',
     //   component: NameComponent
@@ -38,4 +38,4 @@ export default new Router({
     //   component: Test
     // }
   ]
-})
+});

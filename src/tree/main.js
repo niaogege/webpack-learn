@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-15 17:12:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-17 19:54:55
+ * @LastEditTime: 2021-02-21 22:28:34
  * @FilePath: \webpack-learn\src\tree\main.js
  */
 import {
@@ -49,6 +49,25 @@ export default class BinarySearchTree {
       cb(node.key);
       this.inOrderTraverseNode(node.right, cb);
     }
+  }
+  // 中序遍历迭代
+  inOrderTravserseIterator(root) {
+    const res = []; // 最终的结果
+    const stack = []
+    while(root) {
+      stack.push(root)
+      root= root.left
+    }
+    while(stack.length) {
+      const current = stack.pop(); // 栈顶的节点出栈 
+      res.push(current.val)
+      current = current.right; // 获取右子树
+      while(current) {
+        stack.push(current)
+        current = current.left
+      }
+    }
+    return res
   }
   // 先序遍历 先祖父节点
   preOrderTraverse(cb) {
@@ -163,32 +182,81 @@ export default class BinarySearchTree {
       return node
     }
   }
-  getMaxHeight() {
-    if (root == null) {
-      return 0
-    } 
-    const current = root
-    const noop = (node, order) => {
-        let num = 0;
-        while (node[order] != null) {
-            num = num + 1
-            node = node[order]
-        }
-        return num + 1
-    }
-    const num1 = noop(current, 'right')
-    const num2 = noop(current, 'left')
-    return Math.max(num1, num2) 
-  }
+  // 最大深度
   getMaxDepth() {
     if (this.root == null) {
       return 0
     } else {
       const leftMaxDepth = getMaxDepth(this.root.left);
       const rightMaxDepth = getMaxDepth(this.root.right);
-      console.log('leftMaxDepth', leftMaxDepth);
-      // console.log('rightMaxDepth', rightMaxDepth);
       return 1 + Math.max(leftMaxDepth, rightMaxDepth)
+    }
+  }
+  // 层序遍历
+  levelOrder() {
+    const root = this.root;
+    var res = [];
+    root && res.push([root.key]);
+    // 返回每一层的数据
+    const countArr = (node) => {
+      var arr = [];
+      let left = node.left
+      let right = node.right
+      while(
+        left != null && right != null
+      ) {
+        arr.push(left.key);
+        left = left.left;
+        arr.push(right.key);
+        right = right.right;
+      }
+      return arr
+    }
+    // 每一层的数据放到数组里
+    // for(let i = 0; i < this.getMaxDepth; i ++) {
+    // }
+    const arr1 = countArr(root);
+    arr1 && arr1.length && res.push(arr1);
+    console.log('arr1', arr1);
+    return res
+  }
+  levelOrderdfs() {
+    if (!this.root) {return []}
+    const res = [];
+    const dfs = (node, step, res) => {
+      if (node !== null) {
+        if (!res[step]) {
+          res[step] = []
+        }
+        res[step].push(node.key)
+        dfs(node.left, step + 1, res);
+        dfs(node.right, step + 1, res);
+      }
+    }
+    dfs(this.root, 0, res)
+    return res;
+  }
+  levelOrderbfs() {
+    
+    // 
+  }
+  // 所有路径
+  binaryTreePaths() {
+    if (root == null) return []
+    const queue = []; // 暂存队列
+    const res = []; // 最终结果
+    const maxLeft = (node) => {
+        let arr = []
+        if (node && node.left != null) {
+            arr.push(node.val)
+            node = node.left
+        }
+        arr.push(node.val)
+        return arr
+    }
+    queue.push(maxLeft(root))
+    while(queue.length) {
+        
     }
   }
 }

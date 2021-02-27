@@ -1,7 +1,7 @@
 <template>
-  <div id='app'>
-    <!-- <h1 class='name'>{{name}}</h1>
-    <NameComponent name='来自父组件name'/>
+  <div id="app">
+    <h1 class='name' v-if="4564564" data={true}>{{name}}</h1>
+    <!-- <NameComponent name='来自父组件name'/>
     <Test name='来自Parent组件'/> -->
     <router-view></router-view>
     <!-- <LinkedList /> -->
@@ -13,12 +13,6 @@ export default {
   // components: {
   //   ...allComponent
   // },
-  data() {
-    return {
-      name: 'chendap',
-      // list: {}
-    }
-  },
   mounted() {
     // console.log(Test, 'Test')
     // const list = new LinkedList()
@@ -44,8 +38,14 @@ export default {
     // sortList.insert(10, 1)
     // console.log('sortList', sortList);
     // window.sortList = sortList
-  }
-}
+  },
+  data() {
+    return {
+      name: 'chendap',
+      // list: {}
+    };
+  },
+};
 </script>
 <style lang="less" scoped>
 .name {
