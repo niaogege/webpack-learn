@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-15 17:12:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-21 22:28:34
+ * @LastEditTime: 2021-02-27 18:51:45
  * @FilePath: \webpack-learn\src\tree\main.js
  */
 import {
@@ -45,23 +45,23 @@ export default class BinarySearchTree {
   
   inOrderTraverseNode(node, cb) {
     if (node != null) {
-      this.inOrderTraverseNode(node.left, cb);
-      cb(node.key);
-      this.inOrderTraverseNode(node.right, cb);
+      this.inOrderTraverseNode(node.left, cb)
+      cb(node.key)
+      this.inOrderTraverseNode(node.right, cb)
     }
   }
   // 中序遍历迭代
   inOrderTravserseIterator(root) {
-    const res = []; // 最终的结果
+    const res = [] // 最终的结果
     const stack = []
     while(root) {
       stack.push(root)
       root= root.left
     }
     while(stack.length) {
-      const current = stack.pop(); // 栈顶的节点出栈 
+      let current = stack.pop() // 栈顶的节点出栈 
       res.push(current.val)
-      current = current.right; // 获取右子树
+      current = current.right // 获取右子树
       while(current) {
         stack.push(current)
         current = current.left
@@ -75,9 +75,9 @@ export default class BinarySearchTree {
   }
   preOrderTraverseNode(node, cb) {
     if (node != null) {
-      cb(node.key);
-      this.preOrderTraverseNode(node.left, cb);
-      this.preOrderTraverseNode(node.right, cb);
+      cb(node.key)
+      this.preOrderTraverseNode(node.left, cb)
+      this.preOrderTraverseNode(node.right, cb)
     }
   }
   // 后序遍历 先后代节点
@@ -96,7 +96,7 @@ export default class BinarySearchTree {
     return this.minNode(this.root)
   }
   minNode(node) {
-    let current = node;
+    let current = node
     // 找到最左边的那个current
     while (current != null && current.left != null) {
       current = current.left
@@ -110,7 +110,7 @@ export default class BinarySearchTree {
   maxNode(node) {
     let current = node
     while(current != null && current.right != null) {
-      this.maxHeight ++;
+      this.maxHeight ++
       current = current.right
     }
     return current
@@ -187,76 +187,72 @@ export default class BinarySearchTree {
     if (this.root == null) {
       return 0
     } else {
-      const leftMaxDepth = getMaxDepth(this.root.left);
-      const rightMaxDepth = getMaxDepth(this.root.right);
+      const leftMaxDepth = this.getMaxDepth(this.root.left)
+      const rightMaxDepth = this.getMaxDepth(this.root.right)
       return 1 + Math.max(leftMaxDepth, rightMaxDepth)
     }
   }
   // 层序遍历
   levelOrder() {
-    const root = this.root;
-    var res = [];
-    root && res.push([root.key]);
+    const root = this.root
+    var res = []
+    root && res.push([root.key])
     // 返回每一层的数据
     const countArr = (node) => {
-      var arr = [];
+      var arr = []
       let left = node.left
       let right = node.right
       while(
         left != null && right != null
       ) {
-        arr.push(left.key);
-        left = left.left;
-        arr.push(right.key);
-        right = right.right;
+        arr.push(left.key)
+        left = left.left
+        arr.push(right.key)
+        right = right.right
       }
       return arr
     }
     // 每一层的数据放到数组里
     // for(let i = 0; i < this.getMaxDepth; i ++) {
     // }
-    const arr1 = countArr(root);
-    arr1 && arr1.length && res.push(arr1);
-    console.log('arr1', arr1);
+    const arr1 = countArr(root)
+    arr1 && arr1.length && res.push(arr1)
+    console.log('arr1', arr1)
     return res
   }
   levelOrderdfs() {
     if (!this.root) {return []}
-    const res = [];
+    const res = []
     const dfs = (node, step, res) => {
       if (node !== null) {
         if (!res[step]) {
           res[step] = []
         }
         res[step].push(node.key)
-        dfs(node.left, step + 1, res);
-        dfs(node.right, step + 1, res);
+        dfs(node.left, step + 1, res)
+        dfs(node.right, step + 1, res)
       }
     }
     dfs(this.root, 0, res)
-    return res;
+    return res
   }
   levelOrderbfs() {
     
     // 
   }
   // 所有路径
-  binaryTreePaths() {
+  binaryTreePaths(root) {
     if (root == null) return []
-    const queue = []; // 暂存队列
-    const res = []; // 最终结果
+    const queue = [] // 暂存队列
     const maxLeft = (node) => {
-        let arr = []
-        if (node && node.left != null) {
-            arr.push(node.val)
-            node = node.left
-        }
+      let arr = []
+      if (node && node.left != null) {
         arr.push(node.val)
-        return arr
+        node = node.left
+      }
+      arr.push(node.val)
+      return arr
     }
     queue.push(maxLeft(root))
-    while(queue.length) {
-        
-    }
   }
 }
