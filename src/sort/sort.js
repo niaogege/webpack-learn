@@ -2,21 +2,22 @@
  * @Author: cpp
  * @Date: 2021-02-28 17:07:12
  * @LastEditors: cpp
- * @LastEditTime: 2021-03-14 19:07:46
+ * @LastEditTime: 2021-03-28 17:26:26
  * @FilePath: \webpack-learn\src\sort\sort.js
  */
-import {defaultCompare, Compare, swap} from '../utils'
+import _ from '../utils'
 export const bubbleSort = (arr) => {
   const {length} = arr
   // let flag = false
   if (length < 2) {
     return arr
   }
+  console.log(_)
   for(let i = 0; i < length; i ++) {
     // flag = false
     for(let j = 0; j < length - 1 - i; j ++) {
       if (arr[j] > arr[j + 1]) {
-        swap(arr, j, j + 1)
+        _.defaultValue.swap(arr, j, j + 1)
         // flag = true
       }
     }

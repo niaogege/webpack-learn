@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-27 18:47:01
  * @LastEditors: cpp
- * @LastEditTime: 2021-03-21 17:16:00
+ * @LastEditTime: 2021-03-28 17:22:34
  * @FilePath: \webpack-learn\src\sort\index.vue
 -->
 <template>
@@ -59,7 +59,7 @@ export default {
   mounted() {
     let array = createNonSortedArray(5)
     console.log('array', array)
-    // this.bubbleArray = bubbleSort(array)
+    this.bubbleArray = bubbleSort(array)
     // this.selectArray = selectionBubble(array)
     this.insertArray = insertionSort(array)
     
