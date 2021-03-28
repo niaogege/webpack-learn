@@ -2,48 +2,48 @@
  * @Author: cpp
  * @Date: 2021-01-02 10:54:38
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-27 16:10:49
+ * @LastEditTime: 2021-02-28 17:08:30
  * @FilePath: \webpack-learn\src\linkedList\main.js
  */
-import { Node, defaultEquals, DoublyNode, defaultCompare, Compare } from './utils';
+import { Node, defaultEquals, DoublyNode, defaultCompare, Compare } from './utils'
 export class LinkedList {
   constructor(equalsFn = defaultEquals) {
-    this.count = 0;
-    this.head = undefined;
-    this.equalsFn = equalsFn;
+    this.count = 0
+    this.head = undefined
+    this.equalsFn = equalsFn
   }
   // 添加元素
   push(element) {
-    const node = new Node(element);
-    let current;
+    const node = new Node(element)
+    let current
     if (this.head == null) {
-      this.head = node;
+      this.head = node
     } else {
-      current = this.head;
+      current = this.head
       while (current.next !== undefined && current.next !== null) {
-        current = current.next;
+        current = current.next
       }
-      current.next = node;
+      current.next = node
     }
-    this.count++;
+    this.count++
   }
   // 目标索引的元素
   getElementAt(index) {
     if (index >= 0 && index <= this.count) {
-      let node = this.head;
+      let node = this.head
       for (let i = 0; i < index && node != null; i++) {
-        node = node.next;
+        node = node.next
       }
-      return node;
+      return node
     }
-    return undefined;
+    return undefined
   }
   // 特定位置移除
   removeAt(index) {
     if (index >= 0 && index < this.count) {
-      let current = this.head;
+      let current = this.head
       if (index === 0) {
-        this.head = current.next;
+        this.head = current.next
       } else {
         // let previous;
         // for (let i = 0; i <index; i ++) {
@@ -51,89 +51,89 @@ export class LinkedList {
         //   current = current.next
         // }
         // previous.next = current.next
-        let previous = this.getElementAt(index - 1);
-        current = previous.next;
-        previous.next = current.next;
+        let previous = this.getElementAt(index - 1)
+        current = previous.next
+        previous.next = current.next
       }
-      this.count--;
-      return current.element;
+      this.count--
+      return current.element
     }
-    return undefined;
+    return undefined
   }
   // 某一位置插入元素
   insert(element, index) {
     if (index >= 0 && index <= this.count) {
-      const node = new Node(element);
+      const node = new Node(element)
       if (index === 0) {
-        const current = this.head;
-        node.next = current;
-        this.head = node;
+        const current = this.head
+        node.next = current
+        this.head = node
       } else {
-        const previous = this.getElementAt(index - 1);
-        const current = previous.next;
-        node.next = current;
-        previous.next = node;
+        const previous = this.getElementAt(index - 1)
+        const current = previous.next
+        node.next = current
+        previous.next = node
       }
-      this.count++;
-      return true;
+      this.count++
+      return true
     }
-    return false;
+    return false
   }
   // 根据元素返回索引
   indexOf(element) {
-    let current = this.head;
+    let current = this.head
     for (let i = 0; i < this.count && current != null; i++) {
       if (this.equalsFn(element, current.element)) {
-        return i;
+        return i
       }
-      current = current.next;
+      current = current.next
     }
-    return -1;
+    return -1
   }
   remove(element) {
-    const index = this.indexOf(element);
-    return this.removeAt(index);
+    const index = this.indexOf(element)
+    return this.removeAt(index)
   }
   size() {
-    return this.count;
+    return this.count
   }
   isEmpty() {
-    return this.size() === 0;
+    return this.size() === 0
   }
   getHead() {
-    return this.head;
+    return this.head
   }
   getToString() {
     if (this.head === null) {
-      return '';
+      return ''
     }
-    let objString = `${this.head.element}`;
-    let current = this.head.next;
+    let objString = `${this.head.element}`
+    let current = this.head.next
     for (let i = 1; i < this.size() && current != null; i++) {
-      objString = `${objString},${current.element}`;
-      current = current.next;
+      objString = `${objString},${current.element}`
+      current = current.next
     }
-    return objString;
+    return objString
   }
   // 两两交换
   swapPairs() {
-    const head = this.head;
-    if (!head) return null;
+    const head = this.head
+    if (!head) return null
     let helper = function(node) {
-      const tempNext = node.next;
+      const tempNext = node.next
       if (tempNext) {
-        const tempNextNext = node.next.next;
-        node.next.next = node;
+        const tempNextNext = node.next.next
+        node.next.next = node
         if (tempNextNext) {
-          node.next = helper(tempNextNext);
+          node.next = helper(tempNextNext)
         } else {
-          node.next = null;
+          node.next = null
         }
       }
-      return tempNext || node;
-    };
-    this.head = helper(head);
-    console.log('head', this.head);
+      return tempNext || node
+    }
+    this.head = helper(head)
+    console.log('head', this.head)
     // return res
   }
   // 是否有环1
@@ -151,17 +151,17 @@ export class LinkedList {
   // }
   // 是否有环2
   hasCycle() {
-    let current = thie.head;
-    const arr = [];
+    let current = thie.head
+    const arr = []
     while (current !== null) {
       if (arr.includes(current.element)) {
-        return true;
+        return true
       } else {
-        arr.push(current.element);
+        arr.push(current.element)
       }
-      current = current.next;
+      current = current.next
     }
-    return false;
+    return false
   }
   // 是否是闭环
   /**
@@ -169,16 +169,16 @@ export class LinkedList {
    * @return {boolean}
    */
   hasCycle2() {
-    let fast = this.head;
-    let slow = this.head;
+    let fast = this.head
+    let slow = this.head
     while (slow && fast && fast.next) {
-      fast = fast.next.next;
-      slow = slow.next;
+      fast = fast.next.next
+      slow = slow.next
       if (slow === fast) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   }
 }
 /**
@@ -188,172 +188,172 @@ export class LinkedList {
  */
 export class DoublyLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals) {
-    super(equalsFn);
-    this.tail = undefined; // 最后一个元素的引用
+    super(equalsFn)
+    this.tail = undefined // 最后一个元素的引用
   }
   push(element) {
-    const node = new DoublyNode(element);
+    const node = new DoublyNode(element)
     if (this.head == null) {
-      this.head = node;
-      this.tail = node; // NEW
+      this.head = node
+      this.tail = node // NEW
     } else {
       // attach to the tail node // NEW
-      this.tail.next = node;
-      node.prev = this.tail;
-      this.tail = node;
+      this.tail.next = node
+      node.prev = this.tail
+      this.tail = node
     }
-    this.count++;
+    this.count++
   }
   insert(element, index) {
     if (index >= 0 && index <= this.count) {
-      let node = new DoublyNode(element);
-      let current = this.head;
+      let node = new DoublyNode(element)
+      let current = this.head
       // 起点位置插入一个新元素
       if (index === 0) {
         // 如果双向链表为空 只需要把head和tail执行这个新节点
         if (this.head == null) {
-          this.head = node;
-          this.tail = node;
+          this.head = node
+          this.tail = node
         } else {
           // current变量将是链表中第一个元素的引用
-          node.next = this.head;
-          current.prev = node;
-          this.head = node;
+          node.next = this.head
+          current.prev = node
+          this.head = node
         }
       } else if (index === this.count) {
-        current = this.tail;
-        current.next = node;
-        node.prev = current;
-        this.tail = node;
+        current = this.tail
+        current.next = node
+        node.prev = current
+        this.tail = node
       } else {
-        const previous = this.getElementAt(index - 1);
-        current = previous.next;
-        node.next = current;
-        previous.next = node;
-        node.prev = previous;
-        current.prev = node;
+        const previous = this.getElementAt(index - 1)
+        current = previous.next
+        node.next = current
+        previous.next = node
+        node.prev = previous
+        current.prev = node
       }
-      this.count++;
-      return true;
+      this.count++
+      return true
     }
-    return false;
+    return false
   }
   removeAt(index) {
     if (index >= 0 && index <= this.count) {
-      let current = this.head;
+      let current = this.head
       if (this.index === 0) {
-        this.head = current.next;
+        this.head = current.next
         if (this.count === 1) {
-          this.tail = undefined;
+          this.tail = undefined
         } else {
-          this.head.prev = undefined;
+          this.head.prev = undefined
         }
       } else if (index === this.count - 1) {
-        current = this.tail;
-        this.tail = current.prev;
-        this.tail.next = undefined;
+        current = this.tail
+        this.tail = current.prev
+        this.tail.next = undefined
       } else {
-        current = this.getElementAt(index);
-        const previous = current.prev;
-        current = previous.next;
-        previous.next = current.next;
-        current.next.prev = previous;
+        current = this.getElementAt(index)
+        const previous = current.prev
+        current = previous.next
+        previous.next = current.next
+        current.next.prev = previous
       }
-      this.count--;
-      return current.element;
+      this.count--
+      return current.element
     }
-    return undefined;
+    return undefined
   }
 }
 
 export class CircularLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals) {
-    super(equalsFn);
+    super(equalsFn)
   }
   // 链表尾部的next指向head
   insert(element, index) {
     if (index >= 0 && index <= this.count) {
-      let node = new DoublyNode(element);
-      let current = this.head;
+      let node = new DoublyNode(element)
+      let current = this.head
       // 起点位置插入一个新元素
       if (index === 0) {
         // 如果双向链表为空 只需要把head和tail执行这个新节点
         if (this.head == null) {
-          this.head = node;
-          node.next = this.head;
+          this.head = node
+          node.next = this.head
         } else {
           // current变量将是链表中第一个元素的引用
-          node.next = current;
-          current = this.getElementAt(this.size());
-          this.head = node;
-          current.next = this.head;
+          node.next = current
+          current = this.getElementAt(this.size())
+          this.head = node
+          current.next = this.head
         }
       } else {
-        const previous = this.getElementAt(index - 1);
-        node.next = previous.next;
-        previous.next = node;
+        const previous = this.getElementAt(index - 1)
+        node.next = previous.next
+        previous.next = node
       }
-      this.count++;
-      return true;
+      this.count++
+      return true
     }
-    return false;
+    return false
   }
   removeAt(index) {
     if (index >= 0 && index <= this.count) {
-      let current = this.head;
+      let current = this.head
       if (index === 0) {
         if (this.size() === 1) {
-          this.head = undefined;
+          this.head = undefined
         } else {
-          const removed = this.head;
-          current = this.getElementAt(this.size());
-          this.head = this.head.next;
-          current.next = this.head;
-          current = removed;
+          const removed = this.head
+          current = this.getElementAt(this.size())
+          this.head = this.head.next
+          current.next = this.head
+          current = removed
         }
       } else {
-        const previous = this.getElementAt(index - 1);
-        current = previous.next;
-        previous.next = current.next;
+        const previous = this.getElementAt(index - 1)
+        current = previous.next
+        previous.next = current.next
       }
-      this.count--;
-      return current.element;
+      this.count--
+      return current.element
     }
-    return undefined;
+    return undefined
   }
 }
 
 export class SortedLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals, compareFn = defaultCompare) {
-    super(equalsFn);
-    this.equalsFn = equalsFn;
-    this.compareFn = compareFn;
+    super(equalsFn)
+    this.equalsFn = equalsFn
+    this.compareFn = compareFn
   }
   push(element) {
     if (this.isEmpty()) {
-      super.push(element);
+      super.push(element)
     } else {
-      const index = this.getIndexNextSortedElement(element);
-      super.insert(element, index);
+      const index = this.getIndexNextSortedElement(element)
+      super.insert(element, index)
     }
   }
   getIndexNextSortedElement(element) {
-    let current = this.head;
-    let i = 0;
+    let current = this.head
+    let i = 0
     for (; i < this.size() && current; i++) {
-      const comp = this.compareFn(element, current.element);
+      const comp = this.compareFn(element, current.element)
       if (comp === Compare.LESS_THAN) {
-        return i;
+        return i
       }
-      current = current.next;
+      current = current.next
     }
-    return i;
+    return i
   }
   insert(element, index = 0) {
     if (this.isEmpty()) {
-      return super.insert(element, index === 0 ? index : 0);
+      return super.insert(element, index === 0 ? index : 0)
     }
-    const pos = this.getIndexNextSortedElement(element);
-    return super.insert(element, pos);
+    const pos = this.getIndexNextSortedElement(element)
+    return super.insert(element, pos)
   }
 }

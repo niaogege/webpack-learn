@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-12 15:27:07
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-27 16:09:31
+ * @LastEditTime: 2021-03-28 09:58:14
  * @FilePath: \webpack-learn\src\linkedList\index.vue
 -->
 <template>
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { LinkedList, DoublyLinkedList, SortedLinkedList } from './main.js';
+import { LinkedList, DoublyLinkedList, SortedLinkedList } from './main.js'
 
 export default {
   data() {
@@ -49,7 +49,7 @@ export default {
           id: 'circularList',
         },
       ],
-    };
+    }
   },
   // computed: {
   //   allTitle() {
@@ -58,30 +58,30 @@ export default {
   // },
   methods: {
     test() {
-      console.log('this', this);
+      console.log('this', this)
     },
   },
   mounted() {
-    console.log('this', this);
+    console.log('this', this)
     // // 排序链表
-    const sortList = new SortedLinkedList();
-    sortList.insert(15, 0);
-    sortList.insert(20, 2);
-    sortList.insert(10, 1);
-    sortList.insert(33, 3);
-    console.log('sortList', sortList);
-    window.sortList = this.sortList = sortList;
+    const sortList = new SortedLinkedList()
+    sortList.insert(15, 0)
+    sortList.insert(20, 2)
+    sortList.insert(10, 1)
+    sortList.insert(33, 3)
+    console.log('sortList', sortList)
+    window.sortList = this.sortList = sortList
     // 两两交换
-    const reverse = new LinkedList();
-    reverse.push(3);
-    reverse.push(2);
-    reverse.push(0);
-    reverse.push(-4);
-    reverse.push(2);
+    const reverse = new LinkedList()
+    reverse.push(3)
+    reverse.push(2)
+    reverse.push(0)
+    reverse.push(-4)
+    reverse.push(2)
     // reverse.push(0)
     // reverse.push(-4)
-    window.reverse = this.reverseList = this.circularList = reverse;
-    console.log('reverse', reverse);
+    window.reverse = this.reverseList = this.circularList = reverse
+    console.log('reverse', reverse)
   },
-};
+}
 </script>

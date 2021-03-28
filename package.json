@@ -14,11 +14,11 @@
   "author": "cpp",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.13.10",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^1.0.1",
@@ -39,7 +39,7 @@
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.41.2",
-    "webpack-bundle-analyzer": "^4.2.0",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^5.4.0"

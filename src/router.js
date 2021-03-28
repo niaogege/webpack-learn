@@ -2,11 +2,11 @@
  * @Author: cpp
  * @Date: 2021-02-13 18:50:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-27 18:53:01
+ * @LastEditTime: 2021-03-28 10:21:27
  * @FilePath: \webpack-learn\src\router.js
  */
 import Router from 'vue-router'
-import Vue from '../node_modules/vue/dist/vue.js'
+import Vue from 'vue'
 // import NameComponent from './render/name';
 // import Test from './render/test';
 import Main from './main'
@@ -32,14 +32,5 @@ export default new Router({
     },{
       path: '/sort',
       component: Sort
-    }
-    // {
-    //   path: '/name',
-    //   component: NameComponent
-    // },
-    // {
-    //   path: '/test',
-    //   component: Test
-    // }
-  ]
+    }]
 })

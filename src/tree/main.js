@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-15 17:12:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-27 18:51:45
+ * @LastEditTime: 2021-03-20 19:27:30
  * @FilePath: \webpack-learn\src\tree\main.js
  */
 import {
@@ -56,7 +56,7 @@ export default class BinarySearchTree {
     const stack = []
     while(root) {
       stack.push(root)
-      root= root.left
+      root = root.left
     }
     while(stack.length) {
       let current = stack.pop() // 栈顶的节点出栈 

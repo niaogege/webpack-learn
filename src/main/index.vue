@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-13 19:04:16
  * @LastEditors: cpp
- * @LastEditTime: 2021-02-27 18:46:43
+ * @LastEditTime: 2021-03-14 18:14:59
  * @FilePath: \webpack-learn\src\main\index.vue
 -->
 <template>
@@ -42,24 +42,27 @@ export default {
   data() {
     return {
       title: '寒假还剩5天'
-    };
+    }
   },
   methods: {
     linkToLink() {
       this.$router.push({
         path: 'linkedList'
-      });
+      })
     },
     linkToTree() {
       this.$router.push({
         path: 'tree'
-      });
+      })
     },
     linkToSort() {
       this.$router.push({
         path: 'sort'
-      });
+      })
     }
+  },
+  mounted() {
+    console.log('朱组件入口')
   }
-};
+}
 </script>
