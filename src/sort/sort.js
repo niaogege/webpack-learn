@@ -2,22 +2,22 @@
  * @Author: cpp
  * @Date: 2021-02-28 17:07:12
  * @LastEditors: cpp
- * @LastEditTime: 2021-03-28 17:26:26
- * @FilePath: \webpack-learn\src\sort\sort.js
+ * @LastEditTime: 2021-05-01 21:40:27
+ * @FilePath: \vite-project-based:\learn\webpack-learn\src\sort\sort.js
  */
-import _ from '../utils'
+import {swap, CPP as printName } from '../utils'
 export const bubbleSort = (arr) => {
+  printName()
   const {length} = arr
   // let flag = false
   if (length < 2) {
     return arr
   }
-  console.log(_)
   for(let i = 0; i < length; i ++) {
     // flag = false
     for(let j = 0; j < length - 1 - i; j ++) {
       if (arr[j] > arr[j + 1]) {
-        _.defaultValue.swap(arr, j, j + 1)
+        swap(arr, j, j + 1)
         // flag = true
       }
     }
@@ -39,7 +39,6 @@ export const selectionBubble = (arr) => {
   for(let i = 0; i < length - 1; i ++) {
     indexMin = i
     for (let j = i; j < length; j ++) {
-      console.log('j', j, 'indexMin', indexMin)
       if (arr[indexMin] > arr[j]) {
         indexMin = j
       }

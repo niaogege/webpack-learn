@@ -2,12 +2,12 @@
  * @Author: cpp
  * @Date: 2021-02-27 18:47:01
  * @LastEditors: cpp
- * @LastEditTime: 2021-03-28 17:22:34
- * @FilePath: \webpack-learn\src\sort\index.vue
+ * @LastEditTime: 2021-05-07 22:27:34
+ * @FilePath: \vite-project-based:\learn\webpack-learn\src\sort\index.vue
 -->
 <template>
   <div>
-    排序算法
+    排序算法stor {{$store.state.name}}
     <section>
       <h3>冒泡排序</h3>
       <div>
@@ -58,7 +58,6 @@ export default {
   },
   mounted() {
     let array = createNonSortedArray(5)
-    console.log('array', array)
     this.bubbleArray = bubbleSort(array)
     // this.selectArray = selectionBubble(array)
     this.insertArray = insertionSort(array)
@@ -75,6 +74,7 @@ export default {
       document.getElementById('test').innerHTML = '1111'
       this.cancel()
     }, false)
+    console.log('Sort Mounted', this, this.$store)
   },
   methods: {
     removeText() {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-17 19:31:22
- * @LastEditTime: 2021-03-28 10:38:34
+ * @LastEditTime: 2021-04-10 19:57:40
  * @LastEditors: cpp
  * @Description: In User Settings Edit
  * @FilePath: \webpack-learn\build\webpack.common.js
@@ -10,19 +10,23 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin') // 复制并压缩html
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// 分析打包时间
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const smp = new SpeedMeasurePlugin()
 // const MyFirstWebpckPlugin = require('../plugin/plugin')
 // const FileLIstPlugin = require('../plugin/file')
-module.exports = {
-  entry: path.resolve(__dirname, '../src/index.js'),
+const resolve = (dist) => path.resolve(__dirname, dist)
+module.exports = smp.wrap({
+  entry: resolve('../src/index.js'),
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: resolve('../dist'),
     filename: '[name][hash:8].js',
-    chunkFilename: '[name].bundle.js',
-    // publicPath: path.join(__dirname, '../public'),
+    chunkFilename: '[name].[chunkhash:6].bundle.js',
+    // publicPath: resolve('../public'),
   },
   // resolveLoader: {
   //   alias: {
-  //     'cpp-loader': path.resolve(__dirname, 'loaders/a.js')
+  //     'cpp-loader': path.resolve(__dirname, '../loaders/a.js')
   //   }
   // },
   module: {
@@ -30,18 +34,17 @@ module.exports = {
       // 转换 ES6 代码，解决浏览器兼容问题
       {
         test: /\.js$/,
-        exclude: '/node_modules/',
         use: [
           {
-            loader: 'babel-loader'
-          },
-          // {
-          //   loader: path.join(__dirname, '../loader/cpp-loader,js'),
-          //   options: {  
-          //     log: 'hello loader'
-          //   }
-          // }
-        ]
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true, // 支持缓存转换出的结果
+              cacheCompression: true,
+              compact: true
+            }
+          }
+        ],
+        include: [resolve('../src')]
       },
       {
         test: /\.less$/,
@@ -51,14 +54,14 @@ module.exports = {
           loader: 'css-loader' // translates CSS into CommonJS
         }, {
           loader: 'less-loader' // compiles Less to CSS
-        }]
+        }],
+        include: [resolve('../src')]
       },
       // 编译css，自动添加前缀，抽取css到独立文件
       {  
         test: /\.css$/,  
-        use:['style-loader','css-loader'],  
-        include: path.resolve(__dirname + '/src/'),  
-        exclude: /node_modules/
+        use: ['style-loader', 'css-loader'],  
+        include: [resolve('../src')]
       },
       // 处理静态资源
       {
@@ -68,23 +71,42 @@ module.exports = {
             loader: 'file-loader',
             options: {}
           }
-        ]
+        ],
+        include: [resolve('../src')]
       },
       // 解析vue文件
       {
         test: /\.vue$/,
         use: {
           loader: 'vue-loader'
-        }
+        },
+        include: [resolve('../src')]
+        // exclude: /node_modules/
       }
     ]
   },
   resolve: {
+    // resolve.module 用于配置webpack去哪些目录下寻找第三方模块
+    modules: [
+      resolve('../src'), path.resolve(__dirname, '../node_modules')
+    ],
+    // import导入时别名，减少耗时的递归解析操作
     alias: {
-      // 'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, '../src')
+      '@': resolve('../src')
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    // 尽可能的减少后缀尝试的可能性
+    // 如遇到 require('./data') 先找data.js再去找data.json,然后再去找data.vue
+    // 列表越长 尝试的次数越多 影响构建
+    extensions: ['.js', '.vue']
+  },
+  optimization: {
+    splitChunks: {
+      // 对所有的包进行拆分
+      chunks: 'all',
+    //   cacheGroups: {
+    //     test: ''
+    //   }
+    }
   },
   plugins: [
     // new MyFirstWebpckPlugin({
@@ -107,6 +129,9 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
-  ]
-}
-
+  ],
+  // 配置性能
+  performance: {
+    hints: false // 当打包是出现超过特定文件限制的资产和入口点，performance 控制 webpack 如何通知
+  }
+})

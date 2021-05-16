@@ -1,22 +1,28 @@
 {
-  "name": "webpack-learn",
-  "version": "1.0.0",
+  "name": "cpp-webpack-learn",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.config.dev.js --inline --hot",
-    "build": "webpack --config build/webpack.config.prod.js",
-    "report": "npm_config_report=true npm run build"
+    "build": "webpack --config build/webpack.config.prod.js"
   },
   "keywords": [
     "webpack init project"
   ],
   "author": "cpp",
+  "files": [
+    "build",
+    "src"
+  ],
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.13.10",
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
     "vue": "^2.6.12",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "babel-loader": "^8.2.2",
@@ -33,6 +39,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "postcss-loader": "^4.0.0",
     "prettier": "2.2.1",
+    "speed-measure-webpack-plugin": "^1.5.0",
     "style-loader": "^1.0.0",
     "url-loader": "^1.1.2",
     "vue": "^2.6.12",
