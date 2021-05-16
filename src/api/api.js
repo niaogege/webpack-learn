@@ -3,7 +3,7 @@
  * @Author: cpp
  * @Date: 2021-05-16 15:34:17
  * @LastEditors: cpp
- * @LastEditTime: 2021-05-16 16:15:41
+ * @LastEditTime: 2021-05-16 17:47:00
  * @FilePath: \vite-project-based:\learn\webpack-learn\src\api\api.js
  */
 import API from './axios'
@@ -11,11 +11,13 @@ import API from './axios'
 // http
 export function httpGet({
   url,
-  params
+  params,
+  token
 }) {
   return new Promise((resolve, reject) => {
     return API.get(url, {
-      params
+      params,
+      cancelToken: token
     }).then((res) => {
       resolve(res.data)
     }).catch(err => {
@@ -37,7 +39,9 @@ export function httpPost({
       data,
       params
     }).then(res => {
-      resolve(res.data)
+      if (res && res.data) {
+        resolve(res.data)
+      }
     }).catch(err => {
       reject(err)
     })

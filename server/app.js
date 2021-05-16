@@ -3,7 +3,7 @@
  * @Author: cpp
  * @Date: 2021-05-15 22:11:11
  * @LastEditors: cpp
- * @LastEditTime: 2021-05-16 16:14:15
+ * @LastEditTime: 2021-05-16 16:53:35
  * @FilePath: \vite-project-based:\learn\webpack-learn\server\app.js
  */
 
@@ -45,7 +45,14 @@ app.all('*', function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // 定义变量，做为返回数据
-let myPost = {method: 'post',age: 18,name: 'lily'}
+let myPost = {
+  code: '1',
+  data: {
+    method: 'post',
+    age: 18,
+    name: 'lily'
+  }
+}
 // let myGet = {method:'get',age:20,name:'Jack'}
 
 app.get('/', function (req, res) {
@@ -55,11 +62,6 @@ app.get('/', function (req, res) {
 // get 请求
 app.get('/list',(req,res)=>{
   res.status(200)
-  // res.json({
-  //   method:'get', 
-  //   age:20,
-  //   name:'Jack'
-  // })  // 返回处理结果
   res.json(dataJson)
 })
 
@@ -69,6 +71,23 @@ app.post('/changeList',(req,res)=>{
   res.json(myPost)  // 返回处理结果
 })
 
+// post 请求
+app.post('/error',(req,res)=>{
+  res.status(200)
+  res.json({
+    code: '401',
+    err: 'omg !!!'
+  })  // 返回处理结果
+})
+
+// cancel
+app.get('/cancel', (req, res) => {
+  res.status(200)
+  res.json({
+    code: 1,
+    data: 'cancel'
+  })
+})
 app.use('/birds', birds)
 
 const port = 80
