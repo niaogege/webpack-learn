@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-13 18:50:56
  * @LastEditors: cpp
- * @LastEditTime: 2021-05-15 22:52:41
+ * @LastEditTime: 2021-05-23 20:06:58
  * @FilePath: \vite-project-based:\learn\webpack-learn\src\router.js
  */
 import Router from 'vue-router'
@@ -16,6 +16,7 @@ const Sort = () => import('./Sort')
 const Render = () => import('./render')
 const KeepAlive = () => import('./keepAlive')
 const Http = () => import('./http')
+const Source = () => import('./source/extend')
 // import Main from './main'
 // import Tree from './tree'
 // import LinkedList from './linkedList/index'
@@ -52,6 +53,10 @@ export default new Router({
     {
       path: '/http',
       component: Http
+    },
+    {
+      path: '/source',
+      component: Source
     }
   ]
 })

@@ -2,7 +2,7 @@
  * @Author: cpp
  * @Date: 2021-02-13 19:04:16
  * @LastEditors: cpp
- * @LastEditTime: 2021-05-15 22:52:51
+ * @LastEditTime: 2021-05-23 20:08:36
  * @FilePath: \vite-project-based:\learn\webpack-learn\src\main\index.vue
 -->
 <template>
@@ -41,6 +41,12 @@
         点击前往 Axios
         </p>
       </div>
+      <h4> Source </h4>
+      <div>
+         <p @click='linkToSource'>
+        点击前往 Source
+        </p>
+      </div>
     </section>
   </div>
 </template>
@@ -76,6 +82,11 @@ export default {
     linkToAxios() {
       this.$router.push({
         path: 'http'
+      })
+    },
+    linkToSource() {
+      this.$router.push({
+        path: 'source'
       })
     }
   },
